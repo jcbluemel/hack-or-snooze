@@ -51,11 +51,9 @@ function putStoriesOnPage() {
   $allStoriesList.show();
 }
 
-/** getting values from form, passing to addStory method of storyList,
- *  pass that to generateStoryMarkup,
-*/
 
-function addNewStoryToPage(evt) {
+/* Post a new story from form submission and update page with new story list */
+async function addNewStoryToPage(evt) {
   console.debug("addNewStoryToPage", evt);
   evt.preventDefault();
 
@@ -63,13 +61,15 @@ function addNewStoryToPage(evt) {
   const title = $("#story-title").val();
   const url = $("#story-url").val();
 
-  const newStory = await storyList.addStory(currentUser, {
+  $addStoryForm.trigger("reset");
+
+  await storyList.addStory(currentUser, {
     author,
     title,
     url
   });
 
-  // await getAndShowStoriesOnStart();
+  await getAndShowStoriesOnStart();
 }
 
 $addStoryForm.on("submit", addNewStoryToPage);
