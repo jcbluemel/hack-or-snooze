@@ -74,10 +74,7 @@ class StoryList {
    */
 
   async addStory(user, newStory) {
-
-    const title = newStory.title;
-    const author = newStory.author;
-    const url = newStory.url;
+    const { title, author, url } = newStory;
 
     const response = await axios({
       url: `${BASE_URL}/stories`,
@@ -90,7 +87,7 @@ class StoryList {
 
     const fullStoryInfo = response.data.story;
 
-    return new Story({
+    const desiredStory = new Story({
       storyId: fullStoryInfo.storyId,
       title: fullStoryInfo.title,
       author: fullStoryInfo.author,
@@ -98,6 +95,9 @@ class StoryList {
       username: fullStoryInfo.username,
       createdAt: fullStoryInfo.createdAt
     });
+
+    this.stories.unshift(desiredStory);
+    return desiredStory;
   };
 }
 

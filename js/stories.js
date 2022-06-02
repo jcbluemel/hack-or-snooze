@@ -52,7 +52,8 @@ function putStoriesOnPage() {
 }
 
 
-/* Post a new story from form submission and update page with new story list */
+/** Post a new story from form submission and update page with new story list */
+
 async function addNewStoryToPage(evt) {
   console.debug("addNewStoryToPage", evt);
   evt.preventDefault();
@@ -63,13 +64,15 @@ async function addNewStoryToPage(evt) {
 
   $addStoryForm.trigger("reset");
 
-  await storyList.addStory(currentUser, {
+  const newStory = await storyList.addStory(currentUser, {
     author,
     title,
     url
   });
 
-  await getAndShowStoriesOnStart();
+  const $newStory = generateStoryMarkup(newStory);
+  $allStoriesList.prepend($newStory);
+  $addStoryForm.hide();
 }
 
 $addStoryForm.on("submit", addNewStoryToPage);
