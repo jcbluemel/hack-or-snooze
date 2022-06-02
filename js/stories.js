@@ -50,3 +50,26 @@ function putStoriesOnPage() {
 
   $allStoriesList.show();
 }
+
+/** getting values from form, passing to addStory method of storyList,
+ *  pass that to generateStoryMarkup,
+*/
+
+function addNewStoryToPage(evt) {
+  console.debug("addNewStoryToPage", evt);
+  evt.preventDefault();
+
+  const author = $("#story-author").val();
+  const title = $("#story-title").val();
+  const url = $("#story-url").val();
+
+  const newStory = await storyList.addStory(currentUser, {
+    author,
+    title,
+    url
+  });
+
+  // await getAndShowStoriesOnStart();
+}
+
+$addStoryForm.on("submit", addNewStoryToPage);
