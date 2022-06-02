@@ -49,6 +49,23 @@
 
   <!-- loading message (removed by JS after stories loaded) -->
   <div id="stories-loading-msg">Loading&hellip;</div>
+  <!--Submit Form to add story-->
+  <form id="story-form" class="">
+    <div class="story-input">
+      <label for="story-author">author</label>
+      <input id="story-author" type="text" required placeholder="author name">
+    </div>
+    <div class="story-input">
+      <label for="story-tistory-urltle">title</label>
+      <input id="story-title" type="text" required placeholder="story title">
+    </div>
+    <div class="story-input">
+      <label for="story-url">url</label>
+      <input id="story-url" type="url" required placeholder="story url">
+    </div>
+    <button type="submit">submit</button>
+    <hr>
+  </form>
 
   <!-- List of all stories -->
   <ol id="all-stories-list" class="stories-list"></ol>
