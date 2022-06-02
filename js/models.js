@@ -73,8 +73,32 @@ class StoryList {
    * Returns the new Story instance
    */
 
-  async addStory( /* user, newStory */) {
+  async addStory(user, newStory) {
     // TODO: complete this function!
+
+    const title = newStory.title;
+    const author = newStory.author;
+    const url = newStory.url;
+
+    const response = await axios({
+      url: `${BASE_URL}/stories`,
+      method: "POST",
+      data: {token:user.loginToken, story:{title, author, url}}
+    })
+
+    const fullStoryInfo = response.data.story;
+
+    const desiredStoryInfo = {
+      storyId : fullStoryInfo.storyID,
+      title : fullStoryInfo.title,
+      author : fullStoryInfo.author,
+      url: fullStoryInfo.url,
+      username: fullStoryInfo.username,
+      createdAt: fullStoryInfo.createdAt
+    }
+
+    return new Story(desiredStoryInfo);
+
   }
 }
 
