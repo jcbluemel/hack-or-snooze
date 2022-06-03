@@ -217,37 +217,35 @@ class User {
     }
   }
 
-  /** TODO ADD DOCSTRING */
+  /** Add story to current user's favorites */
 
   async addFavorite(story) {
 
-    console.log(story);
-    const {username, storyId} = story;
-    console.log(username, storyId);
+    const username = currentUser.username;
+    const storyId = story.storyId;
     const response = await axios({
-      url: `${BASE_URL}/users/${username}/favorites/${storyId}`,
+      baseURL: BASE_URL,
+      url: `/users/${username}/favorites/${storyId}`,
       method: "POST",
-      data: { token: currentUser.loginToken }
+      data: { "token": currentUser.loginToken }
     });
-
-
-    //post request to api
-    //2 parameters: username, storyId
-    //https://hack-or-snooze-v3.herokuapp.com (BASE_URL)
-    //`${BASE_URL}/users/${username}/favorites/${storyId}`
-    // response.data.user.favorites is array with favorites
-
-
-
+    this.favorites.unshift(story);
   }
+
+  /** Delete story from current user's favorites */
 
   async deleteFavorite(story) {
-    // delete request to api
-    // 2 parameters: username, storyId
-    //`${BASE_URL}/users/${username}/favorites/${storyId}`
+
+    const username = currentUser.username;
+    const storyId = story.storyId;
+    const response = await axios({
+      baseURL: BASE_URL,
+      url: `/users/${username}/favorites/${storyId}`,
+      method: "DELETE",
+      data: { "token": currentUser.loginToken }
+    });
+    this.favorites = this.favorites.filter(entry => entry.storyId !== storyId)
   }
-
-
 }
 
 
