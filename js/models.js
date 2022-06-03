@@ -34,7 +34,7 @@ class Story {
  * List of Story instances: used by UI to show story lists in DOM.
  */
 
-class StoryList {
+class StoryList {BASE_URL
   constructor(stories) {
     this.stories = stories;
   }
@@ -63,7 +63,7 @@ class StoryList {
     const stories = response.data.stories.map(story => new Story(story));
 
     // build an instance of our own class using the new array of stories
-    return new StoryList(stories);
+    return new StoryList(stories);BASE_URL
   }
 
   /** Adds story data to API, makes a Story instance, adds it to story list.
@@ -105,7 +105,7 @@ class StoryList {
 /******************************************************************************
  * User: a user in the system (only used to represent the current user)
  */
-
+ BASE_URL
 class User {
   /** Make user instance from obj of user data and a token:
    *   - {username, name, createdAt, favorites[], ownStories[]}
@@ -145,7 +145,7 @@ class User {
       method: "POST",
       data: { user: { username, password, name } },
     });
-
+    BASE_URL
     const { user } = response.data;
 
     return new User(
@@ -216,4 +216,70 @@ class User {
       return null;
     }
   }
+
+  /** TODO ADD DOCSTRING */
+
+  async addFavorite(story) {
+
+    console.log(story);
+    const {username, storyId} = story;
+    console.log(username, storyId);
+    const response = await axios({
+      url: `${BASE_URL}/users/${username}/favorites/${storyId}`,
+      method: "POST",
+      data: { token: currentUser.loginToken }
+    });
+
+
+    //post request to api
+    //2 parameters: username, storyId
+    //https://hack-or-snooze-v3.herokuapp.com (BASE_URL)
+    //`${BASE_URL}/users/${username}/favorites/${storyId}`
+    // response.data.user.favorites is array with favorites
+
+
+
+  }
+
+  async deleteFavorite(story) {
+    // delete request to api
+    // 2 parameters: username, storyId
+    //`${BASE_URL}/users/${username}/favorites/${storyId}`
+  }
+
+
 }
+
+
+// {
+//   "message": "Favorite Added Successfully!",
+//   "user": {
+//     "createdAt": "017-11-09T18:38:39.409Z",
+//     "favorites": [
+//       {
+//         "author": "Matt Lane",
+//         "createdAt": "017-11-09T18:38:39.409Z",
+//         "storyId": "5081e46e-3143-4c0c-bbf4-c22eb11eb3f5",
+//         "title": "The Best Story Ever",
+//         "updatedAt": "017-11-09T18:38:39.409Z",
+//         "url": "https://www.rithmschool.com/blog/do-web-developers-need-to-be-good-at-math",
+//         "username": "hueter"
+//       }
+//     ],
+//     "name": "Michael Hueter",
+//     "password": "foo123",
+//     "stories": [
+//       {
+//         "author": "Matt Lane",
+//         "createdAt": "017-11-09T18:38:39.409Z",
+//         "storyId": "5081e46e-3143-4c0c-bbf4-c22eb11eb3f5",
+//         "title": "The Best Story Ever",
+//         "updatedAt": "017-11-09T18:38:39.409Z",
+//         "url": "https://www.rithmschool.com/blog/do-web-developers-need-to-be-good-at-math",
+//         "username": "hueter"
+//       }
+//     ],
+//     "updatedAt": "017-11-09T18:38:39.409Z",
+//     "username": "hueter"
+//   }
+// }
