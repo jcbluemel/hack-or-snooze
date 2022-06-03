@@ -79,3 +79,20 @@ async function addNewStoryToPage(evt) {
 
 $addStoryForm.on("submit", addNewStoryToPage);
 
+function clickFavorite () {
+
+}
+
+$(".far, .fa-star")
+
+//toggle
+
+//filled star: .fas.fa-star
+//unfilled star: .far.fa-star
+
+function toggleFavBtnElement(evt) {
+  console.log(evt.target);
+  $(evt.target).toggleClass("fas far");
+}
+
+$allStoriesList.on("click", ".fav-btn", toggleFavBtnElement);
