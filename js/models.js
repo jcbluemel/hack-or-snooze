@@ -27,6 +27,16 @@ class Story {
     // TODO: complete this function!
     return "hostname.com";
   }
+
+  // TODO:
+  // static async getStoryById() {
+  //   const response = await axios({
+  //     url: `${BASE_URL}/stories`,
+  //     method: "GET",
+  //   });
+  // }
+  // get request by id
+  // return the story instance response
 }
 
 
@@ -222,13 +232,13 @@ class User {
 
   async addFavorite(story) {
 
-    const username = currentUser.username;
+    const username = this.username;
     const storyId = story.storyId;
     const response = await axios({
       baseURL: BASE_URL,
       url: `/users/${username}/favorites/${storyId}`,
       method: "POST",
-      data: { "token": currentUser.loginToken }
+      data: { "token": this.loginToken }
     });
     this.favorites.unshift(story);
     return this.favorites;
@@ -238,13 +248,13 @@ class User {
 
   async deleteFavorite(story) {
 
-    const username = currentUser.username;
+    const username = this.username;
     const storyId = story.storyId;
     const response = await axios({
       baseURL: BASE_URL,
       url: `/users/${username}/favorites/${storyId}`,
       method: "DELETE",
-      data: { "token": currentUser.loginToken }
+      data: { "token": this.loginToken }
     });
     this.favorites = this.favorites.filter(entry => entry.storyId !== storyId);
     return this.favorites;

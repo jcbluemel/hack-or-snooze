@@ -23,6 +23,10 @@ function generateStoryMarkup(story) {
   // console.debug("generateStoryMarkup", story);
 
   const hostName = story.getHostName();
+  // TODO: add check if in currentUser.favorites
+  //  if so, colored star and mark as 'favorited' in li
+  //  else uncolored star only
+  //  save these in variable and pass it in instead of line 32
   return $(`
       <li id="${story.storyId}">
         <span class="fav-btn"><i class="fa-star far"></i></span>
@@ -127,3 +131,15 @@ function putFavsOnPage() {
 //if index found, delete favorites[index]
 // ---
 //else User.add
+
+
+// storyList.stories is array of Story objs
+// currentUser.favorites is array of Story objs
+// when making li, check if id is in favorites array
+//    if so, set to 'favorited' somehow and color in star
+// when clicked on fav button, check for the 'favorited' class on li
+//    if 'favorited', find index of story based on id in favorites array, and deleteFavorite.
+//      also delete that item if on the favorites page
+//    if not, find index of story based on storyList based on id in storyList.stories,
+//      and addFavorite
+
