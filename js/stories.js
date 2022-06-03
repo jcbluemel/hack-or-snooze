@@ -86,9 +86,15 @@ async function addNewStoryToPage(evt) {
 $addStoryForm.on("submit", addNewStoryToPage);
 
 /** TODO */
-function addOrDeleteFromFavs (evt) {
+
+async function addOrDeleteFromFavs (evt) {
   toggleFavBtnElement(evt);
-  putFavsOnPage();
+  const $clickedStoryId = $(evt.target).closest("li").attr("id");
+  console.log(typeof $clickedStoryId);
+  const $clickedStory = await Story.getStoryById($clickedStoryId);
+  checkIfStoryInFavs($clickedStoryId) ?
+    currentUser.deleteFavorite($clickedStory) :
+    currentUser.addFavorite($clickedStory);
 }
 
 $(".stories-container").on("click", ".fav-btn", addOrDeleteFromFavs);
@@ -100,6 +106,15 @@ function toggleFavBtnElement(evt) {
   $(evt.target).toggleClass("fas far");
 }
 
+function checkIfStoryInFavs(id) {
+  for (let favorite of currentUser.favorites) {
+    if (id === favorite.storyId) {
+      return true;
+    }
+  }
+  return false;
+}
+
 /** TODO */
 
 function putFavsOnPage() {
@@ -107,12 +122,12 @@ function putFavsOnPage() {
 
   const favoritesList = currentUser.favorites;
 
-  console.log("list before markup: ", $favoritedStoriesList);
+  // console.log("list before markup: ", $favoritedStoriesList);
   for (let favorite of favoritesList) {
     const $newFav = generateStoryMarkup(favorite);
-    console.log("new fav: ", $newFav);
-    $favoritedStoriesList.prepend($newFav);
-    console.log("fav list after markup: ", $favoritedStoriesList);
+    // console.log("new fav: ", $newFav);
+    $favoritedStoriesList.append($newFav);
+    // console.log("fav list after markup: ", $favoritedStoriesList);
   }
 
   $favoritedStoriesList.show();
