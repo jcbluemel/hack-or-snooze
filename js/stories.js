@@ -22,12 +22,11 @@ async function getAndShowStoriesOnStart() {
 function generateStoryMarkup(story) {
 
   const hostName = story.getHostName();
-  let favIcon = "";
 
   // set star to favorited or unfavorited
-  checkIfStoryInFavs(story.storyId) ?
-    favIcon = "<i class='fa-star fas'></i>" :
-    favIcon = "<i class='fa-star far'></i>";
+  const favIcon = checkIfStoryInFavs(story.storyId)
+    ? "<i class='fa-star fas'></i>"
+    : "<i class='fa-star far'></i>";
 
   return $(`
       <li id="${story.storyId}">
@@ -58,7 +57,6 @@ function putStoriesOnPage() {
   $allStoriesList.show();
 }
 
-
 /** Post a new story from form submission and update page with new story list */
 
 async function addNewStoryToPage(evt) {
@@ -87,42 +85,33 @@ $addStoryForm.on("submit", addNewStoryToPage);
 /** Add or delete clicked story to/from favorites list */
 
 async function addOrDeleteFromFavs(evt) {
-  const $clickedStoryId = $(evt.target).closest("li").attr("id");
-  const $clickedStory = await Story.getStoryById($clickedStoryId);
+  const clickedStoryId = $(evt.target).closest("li").attr("id");
+  const clickedStory = await Story.getStoryById(clickedStoryId);
 
   // if favorited then delete, if not then add
-  checkIfStoryInFavs($clickedStoryId) ?
-    currentUser.deleteFavorite($clickedStory) :
-    currentUser.addFavorite($clickedStory);
-
-  toggleFavBtnElement(evt);
+  if (checkIfStoryInFavs(clickedStoryId)) {
+    currentUser.deleteFavorite(clickedStory);
+  } else {
+    currentUser.addFavorite(clickedStory);
+  }
+  // toggle fav button between favorited and unfavorited
+  $(evt.target).toggleClass("fas far");
 }
 
 $(".stories-container").on("click", ".fav-btn", addOrDeleteFromFavs);
-
-/** Toggle DOM element between favorited and unfavorited story */
-
-function toggleFavBtnElement(evt) {
-  $(evt.target).toggleClass("fas far");
-}
 
 /** Check if story is favorited by storyId */
 
 function checkIfStoryInFavs(id) {
 
-  for (let favorite of currentUser.favorites) {
-    if (id === favorite.storyId) {
-      return true;
-    }
-  }
-  return false;
+  return currentUser.favorites.some(favorite => favorite.storyId === id);
 }
 
 /** Show favorites page and populate with current user's favorites */
 
 function putFavsOnPage() {
-  $favoritedStoriesList.empty();
 
+  $favoritedStoriesList.empty();
   const favoritesList = currentUser.favorites;
 
   for (let favorite of favoritesList) {

@@ -235,14 +235,13 @@ class User {
 
     const username = this.username;
     const storyId = story.storyId;
-    const response = await axios({
+    await axios({
       baseURL: BASE_URL,
       url: `/users/${username}/favorites/${storyId}`,
       method: "POST",
       data: { "token": this.loginToken }
     });
     this.favorites.unshift(story);
-    return this.favorites;
   }
 
   /** Delete story from current user's favorites */
@@ -251,13 +250,12 @@ class User {
 
     const username = this.username;
     const storyId = story.storyId;
-    const response = await axios({
+    await axios({
       baseURL: BASE_URL,
       url: `/users/${username}/favorites/${storyId}`,
       method: "DELETE",
       data: { "token": this.loginToken }
     });
     this.favorites = this.favorites.filter(entry => entry.storyId !== storyId);
-    return this.favorites;
   }
 }
