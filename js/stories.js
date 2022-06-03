@@ -25,12 +25,9 @@ function generateStoryMarkup(story) {
   const hostName = story.getHostName();
   let favIcon = "";
 
-
-  for (let favorite of currentUser.favorites) {
-    checkIfStoryInFavs(story.storyId) ?
-      favIcon = "<i class='fa-star fas'></i>" :
-      favIcon = "<i class='fa-star far'></i>"
-  }
+  checkIfStoryInFavs(story.storyId) ?
+    favIcon = "<i class='fa-star fas'></i>" :
+    favIcon = "<i class='fa-star far'></i>"
 
   return $(`
       <li id="${story.storyId}">
