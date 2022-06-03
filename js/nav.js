@@ -46,6 +46,8 @@ function showAddStoryForm() {
 
 $navSubmit.on("click", showAddStoryForm);
 
+/** Show favorites page when favorites is clicked in nav */
+
 function showUserFavorites() {
   hidePageComponents();
   console.log(currentUser.favorites);

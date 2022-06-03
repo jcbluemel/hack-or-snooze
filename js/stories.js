@@ -78,19 +78,18 @@ async function addNewStoryToPage(evt) {
 
 $addStoryForm.on("submit", addNewStoryToPage);
 
+/** TODO */
+function addOrDeleteFromFavs (evt) {
+  toggleFavBtnElement(evt);
+  putFavsOnPage();
+}
+
+$(".stories-container").on("click", ".fav-btn", addOrDeleteFromFavs);
 
 /** Toggle DOM element between favorited and unfavorited story */
 
 function toggleFavBtnElement(evt) {
   $(evt.target).toggleClass("fas far");
-}
-
-$(".stories-container").on("click", ".fav-btn", addOrDeleteFromFavs);
-
-/** TODO */
-function addOrDeleteFromFavs (evt) {
-  toggleFavBtnElement(evt);
-  putFavsOnPage();
 }
 
 /** TODO */
