@@ -20,16 +20,19 @@ async function getAndShowStoriesOnStart() {
  */
 
 function generateStoryMarkup(story) {
-  // console.debug("generateStoryMarkup", story);
 
+  // check if story is favorited by user
   const hostName = story.getHostName();
-  // TODO: add check if in currentUser.favorites
-  //  if so, colored star and mark as 'favorited' in li
-  //  else uncolored star only
-  //  save these in variable and pass it in instead of line 32
+  let favIcon = "";
+  for (let favorite of currentUser.favorites) {
+    story.storyId === favorite.storyId ?
+      favIcon = "<i class='fa-star fas'></i>" :
+      favIcon = "<i class='fa-star far'></i>"
+  }
+
   return $(`
       <li id="${story.storyId}">
-        <span class="fav-btn"><i class="fa-star far"></i></span>
+        <span class="fav-btn">${favIcon}</span>
         <a href="${story.url}" target="a_blank" class="story-link">
           ${story.title}
         </a>
