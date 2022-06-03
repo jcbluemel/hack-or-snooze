@@ -85,11 +85,12 @@ function addOrDeleteFromFavs (evt) {
 }
 
 $(".stories-container").on("click", ".fav-btn", addOrDeleteFromFavs);
-
+<li id="${story.storyId}"></li>
 /** Toggle DOM element between favorited and unfavorited story */
 
 function toggleFavBtnElement(evt) {
   $(evt.target).toggleClass("fas far");
+
 }
 
 /** TODO */
@@ -113,3 +114,16 @@ function putFavsOnPage() {
   //append to the favorite stories list
 }
 
+//click the favorite star button
+//check if the li's id is included:
+//    check in favorites array, do any stories.storyId
+//    currentUser.favorites.includes(story => story.storyId === li ID) return bool
+//          if included, deleteFavorite({story})
+//          if not, add to favorites
+//
+
+
+//currentUser.favorites.find(story => story.storyId === li ID) return index or undefined
+//if index found, delete favorites[index]
+// ---
+//else User.add
