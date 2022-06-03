@@ -34,7 +34,8 @@ class Story {
  * List of Story instances: used by UI to show story lists in DOM.
  */
 
-class StoryList {BASE_URL
+class StoryList {
+  BASE_URL;
   constructor(stories) {
     this.stories = stories;
   }
@@ -63,7 +64,7 @@ class StoryList {BASE_URL
     const stories = response.data.stories.map(story => new Story(story));
 
     // build an instance of our own class using the new array of stories
-    return new StoryList(stories);BASE_URL
+    return new StoryList(stories); BASE_URL;
   }
 
   /** Adds story data to API, makes a Story instance, adds it to story list.
@@ -105,7 +106,7 @@ class StoryList {BASE_URL
 /******************************************************************************
  * User: a user in the system (only used to represent the current user)
  */
- BASE_URL
+BASE_URL;
 class User {
   /** Make user instance from obj of user data and a token:
    *   - {username, name, createdAt, favorites[], ownStories[]}
@@ -145,7 +146,7 @@ class User {
       method: "POST",
       data: { user: { username, password, name } },
     });
-    BASE_URL
+    BASE_URL;
     const { user } = response.data;
 
     return new User(
@@ -230,6 +231,7 @@ class User {
       data: { "token": currentUser.loginToken }
     });
     this.favorites.unshift(story);
+    return this.favorites;
   }
 
   /** Delete story from current user's favorites */
@@ -244,7 +246,8 @@ class User {
       method: "DELETE",
       data: { "token": currentUser.loginToken }
     });
-    this.favorites = this.favorites.filter(entry => entry.storyId !== storyId)
+    this.favorites = this.favorites.filter(entry => entry.storyId !== storyId);
+    return this.favorites;
   }
 }
 
