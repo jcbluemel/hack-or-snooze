@@ -96,11 +96,12 @@ $(".stories-container").on("click", ".fav-btn", addOrDeleteFromFavs);
 /** Toggle DOM element between favorited and unfavorited story */
 
 function toggleFavBtnElement(evt) {
-  $(evt.target).toggleClass("fas far");
 
+  $(evt.target).toggleClass("fas far");
 }
 
 /** TODO */
+
 function putFavsOnPage() {
   $favoritedStoriesList.empty();
 

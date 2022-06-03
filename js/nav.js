@@ -50,7 +50,7 @@ $navSubmit.on("click", showAddStoryForm);
 
 function showUserFavorites() {
   hidePageComponents();
-  console.log(currentUser.favorites);
+  // console.log(currentUser.favorites);
   putFavsOnPage();
 }
 
