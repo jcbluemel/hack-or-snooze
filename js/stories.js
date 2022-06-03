@@ -85,7 +85,7 @@ function addOrDeleteFromFavs (evt) {
 }
 
 $(".stories-container").on("click", ".fav-btn", addOrDeleteFromFavs);
-<li id="${story.storyId}"></li>
+
 /** Toggle DOM element between favorited and unfavorited story */
 
 function toggleFavBtnElement(evt) {
