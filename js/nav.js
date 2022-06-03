@@ -45,3 +45,11 @@ function showAddStoryForm() {
 }
 
 $navSubmit.on("click", showAddStoryForm);
+
+function showUserFavorites() {
+  hidePageComponents();
+  console.log(currentUser.favorites);
+  putFavsOnPage();
+}
+
+$("#nav-fav-page").on("click", showUserFavorites);

@@ -85,4 +85,32 @@ function toggleFavBtnElement(evt) {
   $(evt.target).toggleClass("fas far");
 }
 
-$allStoriesList.on("click", ".fav-btn", toggleFavBtnElement);
+$(".stories-container").on("click", ".fav-btn", addOrDeleteFromFavs);
+
+/** TODO */
+function addOrDeleteFromFavs (evt) {
+  toggleFavBtnElement(evt);
+  putFavsOnPage();
+}
+
+/** TODO */
+function putFavsOnPage() {
+  $favoritedStoriesList.empty();
+
+  const favoritesList = currentUser.favorites;
+
+  console.log("list before markup: ", $favoritedStoriesList);
+  for (let favorite of favoritesList) {
+    const $newFav = generateStoryMarkup(favorite);
+    console.log("new fav: ", $newFav);
+    $favoritedStoriesList.prepend($newFav);
+    console.log("fav list after markup: ", $favoritedStoriesList);
+  }
+
+  $favoritedStoriesList.show();
+
+
+  //go through list of stories and generate a mark up
+  //append to the favorite stories list
+}
+

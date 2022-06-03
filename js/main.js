@@ -6,12 +6,14 @@ const $body = $("body");
 
 const $storiesLoadingMsg = $("#stories-loading-msg");
 const $allStoriesList = $("#all-stories-list");
+const $favoritedStoriesList = $("#favorited-stories")
 
 const $loginForm = $("#login-form");
 const $signupForm = $("#signup-form");
 const $addStoryForm = $('#story-form');
 
 const $navSubmit = $('#nav-story-form');
+const $navFavPage = $('#nav-fav-page');
 const $navLogin = $("#nav-login");
 const $navUserProfile = $("#nav-user-profile");
 const $navLogOut = $("#nav-logout");
