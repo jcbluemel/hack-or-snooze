@@ -25,7 +25,7 @@ function generateStoryMarkup(story) {
   const hostName = story.getHostName();
   return $(`
       <li id="${story.storyId}">
-        <span class="fav-btn"><i class="far fa-star"></i></span>
+        <span class="fav-btn"><i class="fa-star far"></i></span>
         <a href="${story.url}" target="a_blank" class="story-link">
           ${story.title}
         </a>
@@ -72,26 +72,16 @@ async function addNewStoryToPage(evt) {
   });
 
   const $newStory = generateStoryMarkup(newStory);
-  //add span with star
   $allStoriesList.prepend($newStory);
   $addStoryForm.hide();
 }
 
 $addStoryForm.on("submit", addNewStoryToPage);
 
-function clickFavorite () {
 
-}
-
-$(".far, .fa-star")
-
-//toggle
-
-//filled star: .fas.fa-star
-//unfilled star: .far.fa-star
+/** Toggle DOM element between favorited and unfavorited story */
 
 function toggleFavBtnElement(evt) {
-  console.log(evt.target);
   $(evt.target).toggleClass("fas far");
 }
 
