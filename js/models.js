@@ -29,12 +29,12 @@ class Story {
   }
 
   /** Get a new story instance from desired storyId */
+
   static async getStoryById(storyId) {
     const response = await axios({
-          url: `${BASE_URL}/stories/${storyId}`,
-          method: "GET",
-        });
-    console.log(response.data.story);
+      url: `${BASE_URL}/stories/${storyId}`,
+      method: "GET",
+    });
     return new Story(response.data.story);
   }
 }
@@ -75,7 +75,7 @@ class StoryList {
     const stories = response.data.stories.map(story => new Story(story));
 
     // build an instance of our own class using the new array of stories
-    return new StoryList(stories); BASE_URL;
+    return new StoryList(stories);
   }
 
   /** Adds story data to API, makes a Story instance, adds it to story list.
@@ -261,37 +261,3 @@ class User {
     return this.favorites;
   }
 }
-
-
-// {
-//   "message": "Favorite Added Successfully!",
-//   "user": {
-//     "createdAt": "017-11-09T18:38:39.409Z",
-//     "favorites": [
-//       {
-//         "author": "Matt Lane",
-//         "createdAt": "017-11-09T18:38:39.409Z",
-//         "storyId": "5081e46e-3143-4c0c-bbf4-c22eb11eb3f5",
-//         "title": "The Best Story Ever",
-//         "updatedAt": "017-11-09T18:38:39.409Z",
-//         "url": "https://www.rithmschool.com/blog/do-web-developers-need-to-be-good-at-math",
-//         "username": "hueter"
-//       }
-//     ],
-//     "name": "Michael Hueter",
-//     "password": "foo123",
-//     "stories": [
-//       {
-//         "author": "Matt Lane",
-//         "createdAt": "017-11-09T18:38:39.409Z",
-//         "storyId": "5081e46e-3143-4c0c-bbf4-c22eb11eb3f5",
-//         "title": "The Best Story Ever",
-//         "updatedAt": "017-11-09T18:38:39.409Z",
-//         "url": "https://www.rithmschool.com/blog/do-web-developers-need-to-be-good-at-math",
-//         "username": "hueter"
-//       }
-//     ],
-//     "updatedAt": "017-11-09T18:38:39.409Z",
-//     "username": "hueter"
-//   }
-// }

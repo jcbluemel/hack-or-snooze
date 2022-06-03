@@ -21,13 +21,13 @@ async function getAndShowStoriesOnStart() {
 
 function generateStoryMarkup(story) {
 
-  // check if story is favorited by user
   const hostName = story.getHostName();
   let favIcon = "";
 
+  // set star to favorited or unfavorited
   checkIfStoryInFavs(story.storyId) ?
     favIcon = "<i class='fa-star fas'></i>" :
-    favIcon = "<i class='fa-star far'></i>"
+    favIcon = "<i class='fa-star far'></i>";
 
   return $(`
       <li id="${story.storyId}">
@@ -84,15 +84,17 @@ async function addNewStoryToPage(evt) {
 
 $addStoryForm.on("submit", addNewStoryToPage);
 
-/** TODO */
+/** Add or delete clicked story to/from favorites list */
 
-async function addOrDeleteFromFavs (evt) {
+async function addOrDeleteFromFavs(evt) {
   const $clickedStoryId = $(evt.target).closest("li").attr("id");
-  console.log(typeof $clickedStoryId);
   const $clickedStory = await Story.getStoryById($clickedStoryId);
+
+  // if favorited then delete, if not then add
   checkIfStoryInFavs($clickedStoryId) ?
     currentUser.deleteFavorite($clickedStory) :
     currentUser.addFavorite($clickedStory);
+
   toggleFavBtnElement(evt);
 }
 
@@ -101,13 +103,12 @@ $(".stories-container").on("click", ".fav-btn", addOrDeleteFromFavs);
 /** Toggle DOM element between favorited and unfavorited story */
 
 function toggleFavBtnElement(evt) {
-
   $(evt.target).toggleClass("fas far");
 }
 
-function checkIfStoryInFavs(id) {
+/** Check if story is favorited by storyId */
 
-  // return $(evt.target).attr("class") === "fa-star fas";
+function checkIfStoryInFavs(id) {
 
   for (let favorite of currentUser.favorites) {
     if (id === favorite.storyId) {
@@ -117,57 +118,17 @@ function checkIfStoryInFavs(id) {
   return false;
 }
 
-// for (let favorite of currentUser.favorites) {
-//   story.storyId === favorite.storyId ?
-//     favIcon = "<i class='fa-star fas'></i>" :
-//     favIcon = "<i class='fa-star far'></i>"
-// }
-
-/** TODO */
+/** Show favorites page and populate with current user's favorites */
 
 function putFavsOnPage() {
   $favoritedStoriesList.empty();
 
   const favoritesList = currentUser.favorites;
 
-  console.log("list before markup: ", $favoritedStoriesList);
   for (let favorite of favoritesList) {
-    console.log("fav before markup: ", favorite);
     const $newFav = generateStoryMarkup(favorite);
-    console.log("new fav: ", $newFav);
     $favoritedStoriesList.append($newFav);
-    console.log("fav list after markup: ", $favoritedStoriesList);
   }
 
   $favoritedStoriesList.show();
-
-
-  //go through list of stories and generate a mark up
-  //append to the favorite stories list
 }
-
-//click the favorite star button
-//check if the li's id is included:
-//    check in favorites array, do any stories.storyId
-//    currentUser.favorites.includes(story => story.storyId === li ID) return bool
-//          if included, deleteFavorite({story})
-//          if not, add to favorites
-//
-
-
-//currentUser.favorites.find(story => story.storyId === li ID) return index or undefined
-//if index found, delete favorites[index]
-// ---
-//else User.add
-
-
-// storyList.stories is array of Story objs
-// currentUser.favorites is array of Story objs
-// when making li, check if id is in favorites array
-//    if so, set to 'favorited' somehow and color in star
-// when clicked on fav button, check for the 'favorited' class on li
-//    if 'favorited', find index of story based on id in favorites array, and deleteFavorite.
-//      also delete that item if on the favorites page
-//    if not, find index of story based on storyList based on id in storyList.stories,
-//      and addFavorite
-
