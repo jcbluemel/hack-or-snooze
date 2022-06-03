@@ -24,8 +24,10 @@ function generateStoryMarkup(story) {
   // check if story is favorited by user
   const hostName = story.getHostName();
   let favIcon = "";
+
+
   for (let favorite of currentUser.favorites) {
-    story.storyId === favorite.storyId ?
+    checkIfStoryInFavs(story.storyId) ?
       favIcon = "<i class='fa-star fas'></i>" :
       favIcon = "<i class='fa-star far'></i>"
   }
@@ -88,13 +90,13 @@ $addStoryForm.on("submit", addNewStoryToPage);
 /** TODO */
 
 async function addOrDeleteFromFavs (evt) {
-  toggleFavBtnElement(evt);
   const $clickedStoryId = $(evt.target).closest("li").attr("id");
   console.log(typeof $clickedStoryId);
   const $clickedStory = await Story.getStoryById($clickedStoryId);
   checkIfStoryInFavs($clickedStoryId) ?
     currentUser.deleteFavorite($clickedStory) :
     currentUser.addFavorite($clickedStory);
+  toggleFavBtnElement(evt);
 }
 
 $(".stories-container").on("click", ".fav-btn", addOrDeleteFromFavs);
@@ -107,6 +109,9 @@ function toggleFavBtnElement(evt) {
 }
 
 function checkIfStoryInFavs(id) {
+
+  // return $(evt.target).attr("class") === "fa-star fas";
+
   for (let favorite of currentUser.favorites) {
     if (id === favorite.storyId) {
       return true;
@@ -115,6 +120,12 @@ function checkIfStoryInFavs(id) {
   return false;
 }
 
+// for (let favorite of currentUser.favorites) {
+//   story.storyId === favorite.storyId ?
+//     favIcon = "<i class='fa-star fas'></i>" :
+//     favIcon = "<i class='fa-star far'></i>"
+// }
+
 /** TODO */
 
 function putFavsOnPage() {
@@ -122,12 +133,13 @@ function putFavsOnPage() {
 
   const favoritesList = currentUser.favorites;
 
-  // console.log("list before markup: ", $favoritedStoriesList);
+  console.log("list before markup: ", $favoritedStoriesList);
   for (let favorite of favoritesList) {
+    console.log("fav before markup: ", favorite);
     const $newFav = generateStoryMarkup(favorite);
-    // console.log("new fav: ", $newFav);
+    console.log("new fav: ", $newFav);
     $favoritedStoriesList.append($newFav);
-    // console.log("fav list after markup: ", $favoritedStoriesList);
+    console.log("fav list after markup: ", $favoritedStoriesList);
   }
 
   $favoritedStoriesList.show();
