@@ -28,16 +28,17 @@ class Story {
     return "hostname.com";
   }
 
-  // TODO:
-  // static async getStoryById() {
-  //   const response = await axios({
-  //     url: `${BASE_URL}/stories`,
-  //     method: "GET",
-  //   });
-  // }
-  // get request by id
-  // return the story instance response
+  /** Get a new story instance from desired storyId */
+  static async getStoryById(storyId) {
+    const response = await axios({
+          url: `${BASE_URL}/stories/${storyId}`,
+          method: "GET",
+        });
+    console.log(response.data.story);
+    return new Story(response.data.story);
+  }
 }
+
 
 
 /******************************************************************************
